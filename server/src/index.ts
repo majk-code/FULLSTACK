@@ -1,8 +1,12 @@
+import { config } from "dotenv";
+config()
+
 import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import Deck from './models/Deck'
-const app = express();
+
 const port = 5000;
+const app = express();
 
 app.use(express.json())
 
@@ -15,7 +19,7 @@ app.post('/decks', async (req: Request,res: Response) => {
     res.json(createdDeck)
 })
 
-const db = mongoose.connect('mongodb+srv://michalpukalom1kel:gDGsp0N4ofHAMPU1@app.0svzuoj.mongodb.net/?retryWrites=true&w=majority&appName=APP')
+mongoose.connect(process.env.MONGO_URL!)
 
 app.listen(port)
 console.log(`server działa na porcie ${port}`)
